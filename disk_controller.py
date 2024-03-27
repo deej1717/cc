@@ -14,10 +14,10 @@ guess = conn.recv(1024).decode()
 
 if guess == password:
     while True:
-        password = conn.recv(1024).decode()
-        if not password:
+        command = conn.recv(1024).decode()
+        if not command:
             break
-        print(password)
+        print(command)
         #Shell goes here
         response = "Dhruv"
         conn.send(response.encode())
