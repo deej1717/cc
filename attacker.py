@@ -10,12 +10,12 @@ client.connect((host, port))
 
 client.send(password.encode())
 
-command = input("Enter command: ")
+command = raw_input("Enter command: ")
 
 while command.lower().strip() != 'exit':
     client.send(command.encode())
     response = client.recv(1024).decode()
     print(response)
-    command = input("Enter command: ")
+    command = raw_input("Enter command: ")
 
 client.close()
