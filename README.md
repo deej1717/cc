@@ -16,7 +16,7 @@ David Segalla, Dhruv Locke, and OTHER GUY!!!!!!!!!!!!!!!!!!!!!!
 
 #How the Backdoor Works
 
-The backdoor works by setting up a connection between the two virtual machines. The file on the week4 machine listens on the specified port for a specific connection from a specified IP address. We authenticate the attacker with a password embedded into the source code that is immediately sent as the first communication. The user is not prompted for a password, it is automatic and only the attacker`s source code on their machine has the password. We chose this because it eliminates someones ability to guess the password. Once authenticated the attacker is able to send commands to the week4 machine`s shell and those commands will be executed then the output is relayed back to the attackers terminal. 
+The backdoor works by setting up a connection between the two virtual machines. The file on the week4 machine listens on the specified port for a specific connection from a specified IP address. We authenticate the attacker with a password embedded into the source code that is immediately sent as the first communication. The user is not prompted for a password, it is automatic and only the attacker's source code on their machine has the password. We chose this because it eliminates someones ability to guess the password. Once authenticated the attacker is able to send commands to the week4 machine's shell and those commands will be executed then the output is relayed back to the attackers terminal. 
 
 
 #Addressing the Five Requirements 
