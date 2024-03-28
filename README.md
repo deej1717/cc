@@ -7,11 +7,13 @@ David Segalla, Dhruv Loke, and Andrew Teoh
 2) Then using the `scp` command copy over the .py files to the week4 machine and to the attacker's machine. The attacker.py file will be for the attacker machine and the disk_controller.py file is to be copied to the week4 machine. For the attacker machine :`scp attacker.py ATTACKERNAME@ATTACKER_IP: PATH` For the week4 machine `scp disk_controller.py user@WEEK4_IP: PATH`
 3) Once the files are on their respective machines you must escalate the week4 machine to root priveleges. This can be done with the command `sudo strace -o /dev/null /bin/sh -p`. To test this you can run `whoami` and the response should be `root`.
 4) Once privleges have been escalted you must change the permissions of the .py file. `chmod 750 disk_controller.py`
-5) For each file you must configure it to the appropriate IP address, each file will have a designated spot for the IP address to be input to the source code. For the attacker.py file it will be the attacking machines IP address and for the disk_controller.py file it will be the week4 machines IP address. 
-6) Now you must make sure port `6000` is open and listening on each machine. This can be done with the `firewall-cmd --add-port=6000/tcp` command.
+5) For the attacker.py file you must configure the IP address to be the IP address of the target machine. 
+6) Now you must make sure port `6000` is open and listening on the target machine. This can be done with the `firewall-cmd --add-port=6000/tcp` command.
 7) Next on the week4 machine you must add the file to the crontab. To do this run the command `crontab -e` to open up the editor.
-8) Then run `0 1 * * * PATH_TO_.py` this will add the file to the crontab which will execute it everyday at 0100. For the sake of grading the file can just be executed with `python disk_controller.py`
-9) Once that is executing you can move over to the attacker machine and execute the attacker.py file. This will establish the connection between the two machines.
+8) Then run `0 1 * * * PATH_TO_.py` this will add the file to the crontab which will execute it everyday at 0100. For the sake of grading
+9) To persist across reboot you must reopen the crontab editor and add another entry with the command `@reboot PATH_TO_SCRIPT`
+10) the file can just be executed with `python disk_controller.py`
+11) Once that is executing you can move over to the attacker machine and execute the attacker.py file. This will establish the connection between the two machines.
 
 
 #How the Backdoor Works
@@ -32,3 +34,7 @@ The backdoor works by setting up a TCP connection between the two virtual machin
 
 Our backdoor could be detected by a system administrator who is able to check the crontab and notices our file there. A trained individual would likely notice the file is not where it is supposed to be. 
 
+
+#Other comments
+
+We were able to get the conection and shell to successfully work on when we tested the two files on our local machines but when trying from either local machine to virtual machine or between two virtual machines we were not able to establish a connection. We debugged by trying to make sure the ports were open and listening and that the firewalls were down on those ports. 
